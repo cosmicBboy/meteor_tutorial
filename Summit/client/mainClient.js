@@ -1,27 +1,18 @@
-var greet = function(name) {
-  console.log("Hi. I'm " + name);
-  console.log("Author: Niels Bantilan")
-}
-
-/*
 if (Meteor.isClient) {
-
-	greet('CLIENT');
-
 	Template.hello.greeting = function() {
 		return "Welcome to the Summit";
-	}
+	};
 
 	Template.hello.events({
 		'click input': function() {
 			if (typeof console !== 'undefined')
 				console.log("You pressed the button");
 		}
-	})
-};
-*/
+	});
+}
 
 Answers = new Meteor.Collection("answers");
+Questions = new Meteor.Collection("questions");
 
 Template.addAnswer.events({
 	'click input.add-answer' : function(e){
@@ -35,11 +26,9 @@ Template.addAnswer.events({
 	}
 });
 
-Questions = new Meteor.Collection("questions");
-
 Template.addQuestion.events({
-	'click input.add-question' : function(e){
-		e.preventDefault();
+	'click input.add-question' : function(f){
+		f.preventDefault();
 		var questionText = document.getElementById("questionText").value;
 		Meteor.call("addQuestion", questionText, function(error, questionId){
 			console.log('Added question with ID:' +questionId);
@@ -47,4 +36,8 @@ Template.addQuestion.events({
 
 		document.getElementById("questionText").value="";
 	}
-})
+});
+
+Template.answers.answer = function() {
+	return Answers.find({});
+}
