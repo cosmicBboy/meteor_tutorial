@@ -25,5 +25,14 @@ Meteor.methods({
 		});
 		console.log(questionId)
 		return questionId;
+	},
+
+	incrementYesVotes: function(answerID){
+		console.log(answerID);
+		Answers.update(answerID,{$inc : {'yes':1}});
+	},
+	incrementNoVotes: function(answerID){
+		console.log(answerID);
+		Answers.update(answerID,{$inc : {'no':1}});
 	}
 });	

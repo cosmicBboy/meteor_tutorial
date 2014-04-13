@@ -27,8 +27,8 @@ Template.addAnswer.events({
 });
 
 Template.addQuestion.events({
-	'click input.add-question' : function(f){
-		f.preventDefault();
+	'click input.add-question' : function(e){
+		e.preventDefault();
 		var questionText = document.getElementById("questionText").value;
 		Meteor.call("addQuestion", questionText, function(error, questionId){
 			console.log('Added question with ID:' +questionId);
@@ -38,6 +38,25 @@ Template.addQuestion.events({
 	}
 });
 
-Template.answers.answer = function() {
+Template.answers.items = function() {
 	return Answers.find({});
 }
+
+Template.answers.events({
+	'click': function () {
+		Session.set("selected_answer", this._id);
+	},
+	'click a.yes' : function(e) {
+		e.preventDefault();
+		var answerId = Session.get('selected_answer');
+		console.log(Session.get('selected_answer"'))
+		console.log('updating yes count for answerId '+answerId);
+		Meteor.call("incrementYesVotes",answerId);
+	},
+	'click a.no': function(e) {
+		e.preventDefault();
+		var answerId = Session.get('selected_answer');
+		console.log('updating no count for answerId '+answerId);
+		Meteor.call("incrementNoVotes",answerId);
+	}
+});

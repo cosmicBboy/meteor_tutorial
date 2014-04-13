@@ -41,4 +41,24 @@ suite('submitAnswers', function() {
 
 });
 
+suite('addVotes', function() {
+
+  // ensure that -
+  // (1) we can add data to the collection
+  // (2) after data is added, we can retrieve it
+  test('server insert votes : OK', function(done, server, client) {
+    server.eval(function() {
+      Answers.insert({answerText: "wheeeeeeeeeee!"});
+      Answers.update({answerText: "wheeeeeeeeeee!"},{$inc : {'yes':1}});
+      var voteCollection = Answers.find().fetch();
+      emit('collection', voteCollection);
+    }).once('collection', function(voteCollection) {
+      // console.log(collection[0].yes)
+      assert.equal(voteCollection[0].yes, 1);
+      done();
+    });
+  });
+
+});
+
 
