@@ -1,3 +1,4 @@
+//Greeting
 if (Meteor.isClient) {
 	Template.hello.greeting = function() {
 		return "Welcome to the Summit";
@@ -11,9 +12,10 @@ if (Meteor.isClient) {
 	});
 }
 
-Answers = new Meteor.Collection("answers");
 Questions = new Meteor.Collection("questions");
+Answers = new Meteor.Collection("answers");
 
+//Add answers
 Template.addAnswer.events({
 	'click input.add-answer' : function(e){
 		e.preventDefault();
@@ -26,6 +28,7 @@ Template.addAnswer.events({
 	}
 });
 
+//Add questions
 Template.addQuestion.events({
 	'click input.add-question' : function(e){
 		e.preventDefault();
@@ -38,25 +41,32 @@ Template.addQuestion.events({
 	}
 });
 
+//Query Items
 Template.answers.items = function() {
 	return Answers.find({});
 }
 
+//event handler for voting buttons
 Template.answers.events({
 	'click': function () {
 		Session.set("selected_answer", this._id);
 	},
 	'click a.yes' : function(e) {
 		e.preventDefault();
-		var answerId = Session.get('selected_answer');
-		console.log(Session.get('selected_answer"'))
-		console.log('updating yes count for answerId '+answerId);
-		Meteor.call("incrementYesVotes",answerId);
+		if(Meteor.userId()){
+			var answerId = Session.get('selected_answer');
+			console.log('updating yes count for answerId '+answerId);
+			Meteor.call("incrementYesVotes",answerId);			
+		}
+
 	},
 	'click a.no': function(e) {
 		e.preventDefault();
-		var answerId = Session.get('selected_answer');
-		console.log('updating no count for answerId '+answerId);
-		Meteor.call("incrementNoVotes",answerId);
+		if(Meteor.userId()){
+			var answerId = Session.get('selected_answer');
+			console.log('updating no count for answerId '+answerId);
+			Meteor.call("incrementNoVotes",answerId);			
+		}
+
 	}
 });

@@ -10,16 +10,25 @@
 <body>
 	<div class="container">
 
-		<h1>Add a solution, or vote.</h1>
-		<div>
+		<!-- Add Summit Search Banner Here -->
+
+		<h1><strong>Forum Dashboard</strong></h1>
+		{{#if currentUser}}
 			{{> loginButtons}}
-		</div>
-		<h3><strong>Challenge</strong>: How do we get fresh water to the millions of people who need it?</h3>
+		{{/if}}
+		<hr>
+		<h3>How do we get fresh water to the millions of people who need it?</h3>
 		<br>
 		<div>
 			<!-- if there is an answer, append it to the DOM-->
-			{{> addAnswer}}
-			{{> answers}}
+			{{#if currentUser}}
+				{{> addAnswer}}
+				{{> answers}}
+			{{/if}}
+			{{#unless currentUser}}
+				{{> login}}
+				{{> loginButtons}}
+			{{/unless}}
 		</div>
 
 	</div>
@@ -33,10 +42,7 @@
 
 <template name="answers">
 	<br>
-	<br>
-	<hr>
-	<h2>All Answers</h2>
-	<hr>
+	<h2>Solutions</h2>
 	{{#each items}}
 			<p class="lead">
 				{{> answer}}
@@ -49,8 +55,8 @@
 		<p class="lead">
 			{{answerText}}
 			<br>
-			<a class="btn btn-xs btn-success yes" href="#"><i class="icon-thumbs-up"></i> Yes {{yes}}</a>
-			<a class="btn btn-xs btn-primary no" href="#"><i class="icon-thumbs-down"></i> No {{no}}</a>
+			<a class="btn btn-xs btn-success yes" href="#"><i class="icon-thumbs-up"></i> Upvote {{yes}}</a>
+			<a class="btn btn-xs btn-primary no" href="#"><i class="icon-thumbs-down"></i> Downvote {{no}}</a>
 		</p>
 	</div>
 </template>
@@ -65,4 +71,8 @@
   <h1>Hello World!</h1>
   {{greeting}}
   <input type="button" value="Click" />
+</template>
+
+<template name="login">
+	<h4> Sign in using Twitter to submit new solutions to vote on existing solutions.</h4>
 </template>
