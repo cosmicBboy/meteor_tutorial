@@ -1,17 +1,9 @@
 //Publishing all posts
 Meteor.publish('posts', function(){
-    return Posts.find({}, {fields: {
-        date: false
-    }});
+    return Posts.find()
 });
 
-/* 
-Meteor.publish('posts', function() {
-    return Posts.find({flagged: false, author: author});
+Meteor.publish('comments', function(){
+    return Comments.find()
 });
 
-//Publishing some posts
-Meteor.publish('somePosts', function(){
-    return Posts.find({'author':'Tom'})
-});
-*/

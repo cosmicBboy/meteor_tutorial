@@ -1,7 +1,9 @@
 Router.configure({
     layoutTemplate: 'layout',
     loadTemplate: 'loading',
-    waitOn: function() { return Meteor.subscribe('posts'); }
+    waitOn: function() { 
+        return [Meteor.subscribe('posts'), Meteor.subscribe('comments')]; 
+    }
 });
 
 Router.map(function() {
