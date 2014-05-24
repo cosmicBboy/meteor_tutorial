@@ -1,6 +1,6 @@
 Router.configure({
     layoutTemplate: 'layout',
-    loadTemplate: 'loading',
+    loadingTemplate: 'loading',
     waitOn: function() { 
         return [Meteor.subscribe('posts'), Meteor.subscribe('notifications')]; 
     }

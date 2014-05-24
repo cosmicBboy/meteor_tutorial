@@ -30,6 +30,5 @@ Meteor.methods({
         createCommentNotification(comment);
 
         return comment._id;
-
     }
 });
