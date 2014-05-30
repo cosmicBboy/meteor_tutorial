@@ -43,13 +43,13 @@ Meteor.methods({
             commentsCount: 0
         });
 
-        //wait for 5 seconds
+        //wait for 0.5 seconds
         if (! this.isSimulation) {
             var Future = Npm.require('fibers/future');
             var future = new Future();
             Meteor.setTimeout(function() {
                 future.return();
-            }, 5 * 1000);
+            }, 500);
             future.wait();
         }
 
