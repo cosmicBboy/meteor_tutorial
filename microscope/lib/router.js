@@ -49,7 +49,8 @@ Router.map(function() {
     });
 
     this.route('postSubmit', {
-        path: '/submit'
+        path: '/submit',
+        disableProgress: true
     });
 
     this.route('postsList', {
