@@ -75,7 +75,9 @@ Meteor.methods({
             throw new Meteor.Error(422, "Already upvoted this post");
 
         Posts.update(post._id, {
+            //adds an item to an array property as long as it doesn't already exist
             $addToSet: {upvoters: user._id},
+            //increments an integer field
             $inc: {votes: 1}
         });
     }
