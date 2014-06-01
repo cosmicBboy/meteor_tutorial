@@ -1,15 +1,18 @@
+// Fixture data
 if (Posts.find().count() === 0) {
     var now = new Date().getTime();
 
-    //create two users
+    //create three users
     var tomId = Meteor.users.insert({
         profile: { name: 'Tom Coleman' }
     });
     var tom = Meteor.users.findOne(tomId);
+
     var sachaId = Meteor.users.insert({
         profile: { name: 'Sacha Greif'}
     });
     var sacha = Meteor.users.findOne(sachaId);
+
     var nielsId = Meteor.users.insert({
         profile: { name: 'Niels Bantilan' }
     });
@@ -73,7 +76,8 @@ if (Posts.find().count() === 0) {
             userId: sacha._id,
             url: 'http://google.com/?g=test-' + i,
             submitted: now - i * 3600 * 1000,
-            commentsCount: 0
+            commentsCount: 0,
+            upvoters: [], votes: 0
         });
     }
 }
