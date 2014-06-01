@@ -6,9 +6,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="{{pathFor 'postsList'}}">S U M I T</a>
+      <a class="brand" href="{{pathFor 'home'}}">S U M I T</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
+          <li>
+            <a href="{{pathFor 'newPosts'}}">New</a>
+          </li>
+          <li>
+            <a href="{{pathFor 'bestPosts'}}">Best</a>
+          </li>
           {{#if currentUser}}
             <li>
               <a href="{{pathFor 'postSubmit'}}">New Post</a>
