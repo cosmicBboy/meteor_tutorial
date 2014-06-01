@@ -66,15 +66,10 @@ Meteor.methods({
         if (!user)
             throw new Meteor.Error(401, "You need to login to upvote");
 
-        var post = Posts.findOne(postId);
-
-        if (!post)
-            throw new Meteor.Error(422, "Post not found");
-
-        if (_.include(post.upvoters, user._id))
-            throw new Meteor.Error(422, "Already upvoted this post");
-
-        Posts.update(post._id, {
+        Posts.update({
+            _id: postId,
+            upvoters: {$ne: user._id}
+        }, {
             //adds an item to an array property as long as it doesn't already exist
             $addToSet: {upvoters: user._id},
             //increments an integer field
